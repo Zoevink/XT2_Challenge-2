@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Klok</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+       <div id="container"> <!--Container voor flexbox -->
+           
+        <div class="hello"></div> <!-- class voor tekst  -->
+        <div id="MijnKlok" class="klok"></div> <!-- Class voor de klok  -->
+        <script type="text/javascript">
+            
+            function showTime(){// Deze functie > aanmaken van de klok
+                var date = new Date(); //Nieuwe variabelen
+                var h = date.getHours(); //0-23
+                var m = date.getMinutes(); //0-59
+                var s = date.getSeconds(); // 0-59
+                var session = "AM"; // ochtend
+
+                if(h == 0) { // Als h gelijk is aan 0
+                    h = 12; //De waarde van h is 12
+                }
+
+                if (h > 12) { //Als h groter is dan 12
+                    h = h - 12; // Er wordt 12 afgehaald
+                    session = "PM";  // Dan komt er 12 achter (avond)
+                }
+
+                if (h < 10) { // Als h kleiner is dan 10
+                    h = "0" + h; // wordt er een 0 voor gezet
+                }
+
+                if (m < 10) {
+                    m = "0" + m;
+                }
+
+                if(s < 10){
+                    s = "0" + s;
+                }
+
+                var time = h + ":" + m + ":" + s + " " + session;
+                document.getElementById("MijnKlok").innerText = time; // roept het id aan
+                document.getElementById("MijnKlok").textContent = time;
+                setTimeout(showTime, 1000); 
+            }
+
+            showTime();
+// functie voor verandering achtergrond rond bepaalde tijden
+function updateBackground() {
+  var hr = (new Date()).getHours(), // variabele aanmaken voor de uren
+    body = document.body, //element voor content in body
+    bstyle = body.style,  // style element voor de tekst
+    hello = document.querySelector(".hello");    
+  if (hr < 10) { // onder 10u volgt onderstaande
+    bstyle.backgroundColor = "#70c4c6"; //Kleur van de achtergrond
+    bstyle.color = "black"; //kleur van tekst
+    hello.innerText = "Tijd voor een bakkie!"; //Tekst boven  tijd
+  } else if (hr < 20) {
+    bstyle.backgroundColor = "#e2b553";
+    bstyle.color = "white";
+    hello.innerText ="Een hele goedemiddag!";
+  } else {
+    bstyle.backgroundColor = "#354a4a";
+    bstyle.color = "white";
+    hello.innerText = "Slaaplekker!";
+  } 
+}
+
+setInterval(updateBackground, 1000 * 60); //updaten achtergrond miliseconden x uur.
+updateBackground();
+        
+        </script>
+        
+        </div>
+    </body>
+
+</html>
